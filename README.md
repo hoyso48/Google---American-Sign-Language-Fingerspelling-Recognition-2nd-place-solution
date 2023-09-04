@@ -1,4 +1,4 @@
-##CTC-Attention Joint Training & Decoding
+#CTC-Attention Joint Training & Decoding
 As both CTC and Attention showed similar performance, I tried to find a method to utilize both techniques.  I primarily referred to the following two papers:
 
 *Joint CTC-Attention Based End-To-End Speech Recognition Using Multi-Task Learning, Kim et al. 2017.*
