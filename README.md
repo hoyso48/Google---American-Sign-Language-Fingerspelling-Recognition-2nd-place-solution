@@ -1,18 +1,3 @@
-#CTC-Attention Joint Training & Decoding
-As both CTC and Attention showed similar performance, I tried to find a method to utilize both techniques.  I primarily referred to the following two papers:
-
-*Joint CTC-Attention Based End-To-End Speech Recognition Using Multi-Task Learning, Kim et al. 2017.*
-[https://arxiv.org/pdf/1609.06773.pdf](url)
-*Joint CTC/attention decoding for end-to-end speech recognition, Hori et al. 2017.*
-[https://aclanthology.org/P17-1048.pdf](url)
-
-Joint CTC-Attention Training is, as the name implies, adding both a CTC decoder (single GRU layer) and an attention decoder (single Transformer decoder layer) to one encoder for multitask learning. The loss weight is set to CTC=0.25 and attention=0.75. But the Joint training itself did not bring noticeable performance boost.
-
-By using the CTC prefix score, it is possible to calculate the probability of an arbitrary output hypothesis "h" without depending on the output timestep of the CTC output. In other words, **implementing the CTC prefix score computation allows for ensembling outputs not only between CTC models but also between CTC and Attention models**. CTC-attention joint decoding with CTC weight=0.3 showed a performance improvement of +0.007~8 without much impact on inference time. It was especially challenging for me to implement it accurately, efficiently, and without any issues to be compatible with tflite.
-
-![](https://www.googleapis.com/download/storage/v1/b/kaggle-forum-message-attachments/o/inbox%2F5003978%2Fabde23b44b90f8ba6adc7d56ca874d86%2F.drawio-3.svg?generation=1692977029060458&alt=media)
-
-![](https://www.googleapis.com/download/storage/v1/b/kaggle-forum-message-attachments/o/inbox%2F5003978%2F22c798e256f66322a0cc9e42b976d570%2F.drawio-4.svg?generation=1692977118893507&alt=media)
 
 ##Preprocessing
 Similar to the previous competition solution, but simpler. Every landmark and xyz was used and standardized. Flip left-handed signer(rather than augmentation). MAX_LEN=768 was used. Any hand-crafted feature was not significant, likely due to the absence of complex relations between movements in frames.
